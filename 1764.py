@@ -1,15 +1,15 @@
-n, m = map(int, input().split())
+import sys
+n, m = map(int, sys.stdin.readline().rstrip().split())
 
-name_l = [str(input()) for _ in range(n)]
-name_s = [str(input()) for _ in range(m)]
+name_all = [str(sys.stdin.readline().rstrip()) for _ in range(n+m)]
+name_all.sort()
 
 name_both = []
-for name in name_l:
-    if name in name_s:
-        name_both.append(name)
-
-name_both.sort()
+for i in range(n+m-1):
+    if name_all[i] == name_all[i+1]:
+        name_both.append(name_all[i])
 
 print(len(name_both))
-for name in name_both:
-    print(name)
+if len(name_both) > 0:
+    for name in name_both:
+        print(name)

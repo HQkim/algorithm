@@ -1,3 +1,7 @@
 import sys
 
-num = [int(sys.stdin.read())]
+a = sys.stdin.readline().lstrip()
+b = sys.stdin.readline().rstrip()
+
+print(list(a))
+print(list(b))
