@@ -1,42 +1,50 @@
-def star1(n, pattern_0, s):
+# def star(n, pattern_0, s):
+#     num = 3*s
+#     pattern = [0] * num
+
+#     for i in range(num):
+#         if i // (num//3) == 0 or i // (num//3) == 2:
+#             pattern[i] = pattern_0[i % (num//3)] * 3
+#         elif i // (num//3) == 1:
+#             a = [pattern_0[i % (num//3)], " "*(num//3),
+#                  pattern_0[i % (num//3)]]
+#             pattern[i] = "".join(a)
+#     if num == n:
+#         return pattern
+
+#     return star(n, pattern, num)
+
+
+# n = int(input())
+
+# pattern = star(n, ["***", "* *", "***"], 3)
+
+
+# for i in pattern:
+#     print(i)
+
+
+def star(n, pattern_0, s):
     num = 3*s
-    pattern = [0] * num
-    i = 0
+    pattern = [[0]*num for _ in range(num)]
+
     for i in range(num):
-        if i // (num//3) == 0 or i // (num//3) == 2:
-            pattern[i] = pattern_0[i % (num//3)] * 3
-        elif i // (num//3) == 1:
-            a = [pattern_0[i % (num//3)], " "*(num//3),
-                 pattern_0[i % (num//3)]]
-            pattern[i] = "".join(a)
-    if num == n or num == 81:
-        return pattern
-
-    return star1(n, pattern, num)
-
-
-def star2(n, pattern_0, s):
-    num = 3*s
-    pattern = [0] * num
-    i = 0
-    for i in range(num):
-        if i // (num//3) == 0 or i // (num//3) == 2:
-            pattern[i] = pattern_0[i % (num//3)] * 3
-        elif i // (num//3) == 1:
-            a = [pattern_0[i % (num//3)], " "*(num//3),
-                 pattern_0[i % (num//3)]]
-            pattern[i] = "".join(a)
+        for j in range(num):
+            if i // (num//3) == 0 or i // (num//3) == 2:
+                pattern[i] = pattern_0[i % (num//3)] * 3
+            elif i // (num//3) == 1:
+                a = [pattern_0[i % (num//3)], " "*(num//3),
+                     pattern_0[i % (num//3)]]
+                pattern[i] = "".join(a)
     if num == n:
         return pattern
 
-    return star2(n, pattern, num)
+    return star(n, pattern, num)
 
 
 n = int(input())
 
-pattern = star1(n, ["***", "* *", "***"], 3)
-if len(pattern) != n:
-    pattern = star2(n, pattern, 81)
+pattern = star(n, ["*"], 1)
 
 for i in pattern:
     print(i)

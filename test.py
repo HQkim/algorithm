@@ -1,7 +1,2 @@
-import sys
-
-a = sys.stdin.readline().lstrip()
-b = sys.stdin.readline().rstrip()
-
-print(list(a))
-print(list(b))
+pattern = [[0]*3 for _ in range(3)]
+print(pattern)
