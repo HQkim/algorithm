@@ -2,7 +2,6 @@ import sys
 
 n, m = map(int, sys.stdin.readline().split())
 
-check = [False]*(n+1)
 a = [0]*m
 
 
@@ -14,16 +13,9 @@ def go(index, n, m):
 
         return
     for i in range(1, n+1):
-        if check[i]:
-            continue
-        check[i] = True
-        if index == 0:
-            a[index] = i
+        a[index] = i
+        if index == 0 or (index >= 0 and i >= a[index-1]):
             go(index+1, n, m)
-        if index > 0 and i > a[index-1]:
-            a[index] = i
-            go(index+1, n, m)
-        check[i] = False
 
 
 go(0, n, m)
