@@ -1,88 +1,32 @@
-# 잃어버린 괄호 ----미해결------------------------
-# 1541번
-ㄴ
+# 잃어버린 괄호
 
-expression = input()
-expression = expression.replace("(", "")
-expression = expression.replace(")", "")
-expression_list = expression.split("-")
+import sys
 
-ind_min, sub_sum_min, sub_sum_actual_min = 0, 0, 0
-for i in range(len(expression_list)):
-    plus_count = expression_list[i].count("+")
-    if plus_count == 0:
-        if i == 0:
-            s = int(expression_list[i])
-            sub_sum_actual = s
-        else:
-            s = -int(expression_list[i])
-            sub_sum_actual = -s
+exp = sys.stdin.readline().rstrip()  # exp == 수식
+exp.replace(")", "")
+exp.replace("(", "")
+exp_minus_split = exp.split("-")
+exp_minus_split_abs_sum = []
 
-        if s < sub_sum_min:
-            sub_sum_min = s
-            ind_min = i
-        elif s == sub_sum_min:
-            if sub_sum_actual < sub_sum_actual_min:
-                sub_sum_min = s
-                ind_min = i
+for i in range(len(exp_minus_split)):
+    exp_minus_split_plus_split = exp_minus_split[i].split("+")
+    plus_sum = 0
+    for j in range(len(exp_minus_split_plus_split)):
+        plus_sum += int(exp_minus_split_plus_split[j])
+    exp_minus_split_abs_sum.append(plus_sum)
 
-    else:
-        expression_list_split = list(map(int, expression_list[i].split("+")))
-        if i == 0:
-            s = sum(expression_list_split)
-            sub_sum_actual = s
-        else:
-            s = -sum(expression_list_split)
-            sub_sum_actual = 0
-            for j in range(len(expression_list_split)):
-                if j == 0:
-                    sub_sum_actual -= expression_list_split[j]
-                else:
-                    sub_sum_actual += expression_list_split[j]
-
-        if s < sub_sum_min:
-            sub_sum_min = s
-            ind_min = i
-        elif s == sub_sum_min:
-            if sub_sum_actual < sub_sum_actual_min:
-                sub_sum_min = s
-                ind_min = i
-
-
-total = 0
-for i in range(len(expression_list)):
-    plus_count = expression_list[i].count("+")
+result = 0
+for i in range(len(exp_minus_split_abs_sum)):
     if i == 0:
-        if plus_count == 0:
-            total += int(expression_list[i])
-        else:
-            expression_list_split = list(
-                map(int, expression_list[i].split("+")))
-            total += int(sum(expression_list_split))
-
-    elif i == ind_min:
-        if plus_count == 0:
-            total -= int(expression_list[i])
-        else:
-            expression_list_split = list(
-                map(int, expression_list[i].split("+")))
-            total -= sum(expression_list_split)
+        result += exp_minus_split_abs_sum[i]
     else:
-        if plus_count == 0:
-            total -= int(expression_list[i])
-        else:
-            expression_list_split = list(
-                map(int, expression_list[i].split("+")))
-            sub_sum_actual = 0
-            for j in range(len(expression_list_split)):
-                if j == 0:
-                    sub_sum_actual -= expression_list_split[j]
-                else:
-                    sub_sum_actual += expression_list_split[j]
-            total += sub_sum_actual
+        result -= exp_minus_split_abs_sum[i]
 
-print(total)
+print(result)
 
 
 # 그리디 알고리즘
 # Silver2, 정답렬 48.373%
+# 소감: 괄호를 하나만 쳐야 하는 줄 알았다. 그래서 exp_minus_split_abs_sum이 가장 큰 녀석을 찾고
+#      거기서 또 sum이 같으면 - 바로 뒤의 절대값이 큰 숫자를 고르려고 했다 보니 코드가 길어졌다.
+#      결국엔 문제를 잘 읽어야 하는 ㅎㅎ..
