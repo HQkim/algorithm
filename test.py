@@ -1,40 +1,27 @@
-sudoku, zero = [], []
-finish = False
+# 순혁이 
 
-for i in range(9):
-    sudoku.append(list(map(int, input().split())))
+# 순혁이 공통
+a_com = 5650 + 45000 + 8700
 
-for i in range(9):                              # 0의 좌표를 리스트 하나에 정리
-    for j in range(9):
-        if sudoku[i][j] == 0:
-            zero.append([i, j])
+# 현욱이 공통
+b_com = 8000
 
-def alt(a, b):
-    check = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    for i in range(9):                          # 가로열, 세로열에서 이미 사용된 숫자 제거
-        if sudoku[i][b] in check:
-            check.remove(sudoku[i][b])
-        if sudoku[a][i] in check:
-            check.remove(sudoku[a][i])
-    for i in range(a//3, a//3+1):             # 3x3에서 이미 사용된 숫자 제거
-        for j in range(b//3, b//3+1):
-            if sudoku[i][j] in check:
-                check.remove(sudoku[i][j])
-    return check
+# 현규 공통
+c_com = 0
 
-def s(t):
-    global finish
-    if finish == True:          # 스도쿠가 끝났을 경우 아무 값도 반환하지 않고 끝내기까지 반복한다.
-        return
-    if len(zero) == t:
-        for i in range(9):
-            print(*sudoku[i])
-        finish = True           # 스도쿠가 완성될 때마다 출력하지 않도록 하는 장치
-        return
-    a, b = zero[t]
-    for i in alt(a, b):
-        sudoku[a][b] = i
-        s(t+1)
-        sudoku[a][b] = 0        # 만약 스두쿠 완성이 안되면, 0으로 초기화한다. 
-                                # 0뿐만 아니라 1~9를 제외한 값을 모두 사용 가능하다. 1~9의 유무만을 확인하기 때문
-s(0)
+# 현욱 -> 순혁
+b_a = 7530 + 6250 + 8700 + 3350
+
+# 현규 -> 순혁
+c_a = 1050 + 9200/2
+
+# 순혁 -> 현규
+a_c = 22400/2 + 500*35
+
+money_all = (a_com+b_com+c_com)/3
+a_sub = -(money_all - a_com) -a_c +c_a +b_a
+b_sub = -(money_all - b_com) -b_a
+c_sub = -(money_all - c_com) +a_c -c_a
+
+print(a_com)
+print(b_com)
