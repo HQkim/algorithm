@@ -18,7 +18,6 @@ while True:
     print(n, end=" ")
     if n == 1:
         break
-
     if n % 3 == 0 and d[n // 3] < d[n-1]:
         n //= 3
     elif n % 2 == 0 and d[n // 2] < d[n-1]:
