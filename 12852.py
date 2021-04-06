@@ -1,8 +1,10 @@
+# 백준 12852번
+
 n = int(input())
 
 d = [0] * 1000001
 
-
+# 각 숫자 최소값 정하기
 for i in range(2, n+1):
     d[i] = d[i-1] + 1
 
@@ -14,6 +16,7 @@ for i in range(2, n+1):
 print(d[n])
 #########################
 
+# 경로 출력하기
 while True:
     print(n, end=" ")
     if n == 1:
