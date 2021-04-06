@@ -1,4 +1,3 @@
-a= [(1,2), (3,4)]
+from itertools import combinations
 
-a[0] =1 
-print(a)
+combinations()
