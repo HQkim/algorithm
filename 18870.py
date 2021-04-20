@@ -28,14 +28,11 @@ input()
 x_list = list(map(int, input().split()))
 
 x = dict()
-<<<<<<< HEAD
 for i, v in enumerate(sorted(set(x_list))):
     x[v] = i
 
 sys.stdout.write(" ".join(map(str, (x[num] for num in x_list))))
-=======
-for i,v in enumerate(sorted(set(x_list))):
+for i, v in enumerate(sorted(set(x_list))):
     x[v] = i
 
 sys.stdout.write(" ".join(map(str, (x[num] for num in x_list))))
->>>>>>> cbdb0ac0cc04f433d402b3fd0072771a5be19bbf
