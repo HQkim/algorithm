@@ -15,16 +15,26 @@ def is_promising(i, j):
     for k in range(9):
         if graph[i][k] in promising:
             promising.remove(graph[i][k])
+            if not promising:
+                break
         if graph[k][j] in promising:
             promising.remove(graph[k][j])
+            if not promising:
+                break
     
     #3*3 박스 검사
     i //= 3
     j //= 3
+    break_check = 0
     for p in range(i*3, (i+1)*3):
+        if break_check == 1:
+            break
         for q in range(j*3, (j+1)*3):
             if graph[p][q] in promising:
                 promising.remove(graph[p][q])
+                if not promising:
+                    break_check = 1
+                    break
     
     return promising
 
