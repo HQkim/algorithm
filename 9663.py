@@ -3,7 +3,7 @@
 
 import sys
 import time
-sys.setrecursionlimit(99999)
+# sys.setrecursionlimit(99999)
 
 
 def bt(N, queen):
@@ -25,6 +25,7 @@ def bt(N, queen):
                     break
             if possible:
                 queen.append(i)
+                
                 bt(N, queen)
                 queen.pop()
 
