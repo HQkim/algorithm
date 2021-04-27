@@ -1,53 +1,27 @@
-# 2580
-# 스도쿠
-
-import sys
-input = sys.stdin.readline
-
-graph = [list(map(int, input().rstrip().split())) for _ in range(9)]
-
-zeros = [(i,j) for i in range(9) for j in range(9) if graph[i][j] == 0]
-
-def is_promising(i, j):
-    promising = set([1,2,3,4,5,6,7,8,9])
-
-    #행열 검사
-    for k in range(9):
-        if graph[i][k] in promising:
-            promising.remove(graph[i][k])
-        if graph[k][j] in promising:
-            promising.remove(graph[k][j])
+def nqueen(sol, n):
+    global count
     
-    #3*3 박스 검사
-    i //= 3
-    j //= 3
-    break_check = 0
-    for p in range(i*3, (i+1)*3):
-        for q in range(j*3, (j+1)*3):
-            if graph[p][q] in promising:
-                promising.remove(graph[p][q])
-    
-    return promising
-
-flag = False #답이 다 나왔는가?
-def dfs(x):
-    global flag
-
-    if flag:
-        return
-
-    if x == len(zeros): # 마지막 0 까지 다 채웠을 경우
-        for row in graph:
-            print(*row)
-        flag = True # 답 다나옴
-        return
+    if len(sol) == n: # 정답 배열(sol)의 길이가 n과 같아지면, count 증가
+        count += 1
+        return 0
+    candidate = list(range(n)) # 0부터 n-1까지를 후보 배열로 만든다.
+    for i in range(len(sol)):
+        if sol[i] in candidate: # 같은 열에 있는 지 확인
+            candidate.remove(sol[i]) # 같은 열에 있다면 후보에서 제외
+        distance = len(sol) - i
+        if sol[i] + distance in candidate: # 같은 대각성 상(+)에 있는 지 확인
+            candidate.remove(sol[i] + distance) # 같은 대각선 상에 있다면 후보에서 제외
+        if sol[i] - distance in candidate: # 같은 대각선 상(-)에 있는 지 확인
+            candidate.remove(sol[i] - distance) # 같은 대각선 상에 있다면 후보에서 제외
+    if candidate != []:
+        for i in candidate:
+            sol.append(i) # 후보의 요소를 정답 배열의 i+1로 추가
+            nqueen(sol, n) # 재귀적으로 다음 행도 확인
     else:
-        (i, j) = zeros[x]
-        promising = is_promising(i, j) # 유망한 숫자 모음
+        return 0
 
-        for num in promising:
-            graph[i][j] = num # 유망한 숫자 하나 넣음
-            dfs(x + 1) # 다음 0으로 넘어감
-            graph[i][j] = 0 # 초기화 (정답이 없을 경우를 대비)
-
-dfs(0)
+count = 0
+num = int(input())
+for i in range(num): # 첫 행의 경우의 수
+    nqueen([i], num)
+print(count)
