@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import sys
 from collections import deque
 
@@ -93,3 +94,11 @@ def dfs(x):
 
 dfs(0)
 >>>>>>> bd50c70c1176bc294ef866d6b8ed7c26c2789bf5
+=======
+a = None
+
+if not a:
+    print(1)
+else:
+    print(0)
+>>>>>>> 9878a165d8c47849b49f25cb71b8d0406ab2d42c
