@@ -1,35 +1,39 @@
-# problem 1874 ---------미해결------------
-import sys
+# problem 1874
 
-n = int(sys.stdin.readline().rstrip())
+import sys
+from collections import deque
+
+input = sys.stdin.readline
 
 stack = []
-action = []
-error = 1
-for i in range(n):
-    number = int(sys.stdin.readline().rstrip())
-    if not stack:
-        stack.append(number)
-        action.append("+")
-    else:
-        temp = []
-        while True:
-            if number > stack[-1]:
-                stack.append(number)
-                action.append("+")
-                break
-            else:
-                b = stack.pop()
-                action.append("-")
-                temp.append(b)
-            if not stack:
-                error = 1
-                break
-        for j in temp:
-            stack.append(j)
+n = int(input())
+numbers = deque([i for i in range(1, n+1)])
 
-if error:
-    print("NO")
-else:
-    for i in action:
-        print(i)
+sequence = []
+for i in range(n):
+    x = int(input())
+    sequence.append(x)
+
+answer = []
+num_max = 0
+for i in sequence:
+    target = i
+    if target > num_max:
+        while numbers:
+            p = numbers.popleft()
+            stack.append(p)
+            answer.append("+")
+            num_max = p
+            if p == target:
+                break
+    if stack[-1] == target:
+        stack.pop()
+        answer.append("-")
+        continue
+    else:
+        answer.clear()
+        answer.append("NO")
+        break
+
+for i in answer:
+    print(i)
