@@ -15,7 +15,6 @@ for _ in range(test_case):
     queue = deque(priority_list)
 
     print_count = 0
-
     while queue:
         index, priority = queue.popleft()
         if not queue:
