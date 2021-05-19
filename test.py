@@ -1,11 +1,3 @@
-import sys
-M = 9**9
-sys.setrecursionlimit(M)
-a = [*map(int, sys.stdin.read().split()), M]
+a = [[1, 2, 3, 4], [5, 6, 7, 8]]
 
-
-def f(i, u): p = a[i]; i += 1; i += p > a[i] and f(i, min(u, p)
-                                                   )-i; i += u > a[i] and f(i, u)-i; print(p); return i
-
-
-f(0, M)
+print(a[:1][:1])
