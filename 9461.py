@@ -14,4 +14,4 @@ for i in range(6, 101):
 t = int(input())
 for _ in range(t):
     n = int(input())
-    print(dp[n])
+    print(dp[n]) 
