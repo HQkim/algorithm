@@ -1,18 +1,37 @@
-def dfs(queen, row, n):
-    count = 0
-    if n == row:
-        return 1
-    for col in range(n):
-        queen[row] = col
-        for i in range(row):
-            if queen[i] == queen[row]:
-                break
-            if abs(queen[i]-queen[row]) == row - i:
-                break
-        else:
-            count += dfs(queen, row + 1, n)
-    return count
-def solution(n):
-    return dfs([0]*n, 0, n)
+from collections import deque
 
-print(solution(int(input())))
+word_input = "I love coding"
+code_word = "ambc"
+arry = [0, 0, 1, 2, 0]
+
+
+def solution(word_input, code_word, arry):
+    answer_list = []
+    word_list = deque([])
+    for s in word_input:
+        word_list.append(s)
+
+    code_queue = deque(code_word)
+
+    for step in arry:
+        code = code_queue.popleft()
+        code_queue.append(code)
+        print(answer_list, word_list, code)
+        for i in range(step):
+            word = word_list.popleft()
+            if word == " ":
+                answer_list.append(word)
+                word = word_list.popleft()
+            answer_list.append(word)
+            if code == word:
+                break
+        answer_list.append(code)
+
+    if word_list:
+        answer_list += word_list
+    answer = "".join(answer_list)
+    print(answer)
+    return
+
+
+solution(word_input, code_word, arry)
