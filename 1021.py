@@ -7,7 +7,7 @@ from collections import deque
 input = sys.stdin.readline
 
 
-def solution():
+def solution_a():
     n, m = map(int, input().rstrip().split())
     wanted_arry = deque(list(map(int, input().rstrip().split())))
     number_arry = deque([i for i in range(1, n+1)])
@@ -42,6 +42,20 @@ def solution():
             number_arry = temp_three_arry
 
     print(answer)
+    return
 
+def solution_b():
+    n, m = map(int, input().rstrip().split())
+    dq = [i for i in range(1, n+1)]
+    find_list = list(map(int, input().strip().split()))
+    
+    answer = 0
+    for i in find_list:
+        ind = dq.index(i)
+        answer += min(len(dq[ind:]), len(dq[:ind]))
+        dq = dq[ind+1:] + dq[:ind]
+    print(answer)
+    return
 
-solution()
+solution_a()
+solution_b()
