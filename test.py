@@ -1,26 +1,20 @@
-arry = [[100, 100, 90], [90, 90, 80], [90, 95, 90]]
+import sys
 
+input = sys.stdin.readline
 
-def solution(arry):
-    answer = []
+word_a = input().strip()
+word_b = input().strip()
 
-    number_of_students = len(arry)
-    for i in range(number_of_students):
-        scores = [x[i] for x in arry]
-        score_max = max(scores)
-        score_min = min(scores)
+length_a = len(word_a)
+length_b = len(word_b)
 
-        if scores[i] == score_max and scores.count(score_max) == 1:
-            score = (sum(scores) - score_max) / (number_of_students - 1)
-            answer.append(score)
-            continue
-        if scores[i] == score_min and scores.count(score_min) == 1:
-            score = (sum(scores) - score_min) / (number_of_students - 1)
-            answer.append(score)
-            continue
-        score = sum(scores) / number_of_students
-        answer.append(score)
-    print(answer)
+dp = [[0] * (length_b + 1) for _ in range(length_a + 1)]
 
+for i in range(1, length_a + 1):
+    for j in range(1, length_b + 1):
+        if word_a[i-1] == word_b[j-1]:
+            dp[i][j] = dp[i-1][j-1] + 1
+        else:
+            dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
-solution(arry)
+print(dp[-1][-1])
