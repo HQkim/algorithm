@@ -3,56 +3,48 @@
 import sys
 from collections import deque
 
-input = sys.stdin.readline
 
-T = int(input().strip())
+def function_AC(commands, array):
 
-answer_list = []
-for _ in range(T):
-    p = input().strip()
-    n = int(input().strip())
-    if n == 0:
-        input()
-        number_array = []
-    else:
-        number_array = deque(input().strip()[1:-1].split(","))
+    is_reverse = False
 
-    error_flag = False
-    popleft_flag = True
-    for cmd in p:
-        if cmd == "D" and not(number_array):
-            answer_list.append("error")
-            error_flag = True
-            break
-        if cmd == "D" and popleft_flag:
-            number_array.popleft()
-            continue
-        if cmd == "D" and not(popleft_flag):
-            number_array.pop()
-            continue
+    front_position = 0
+    back_position = len(array)
+
+    for cmd in commands:
         if cmd == "R":
-            popleft_flag = not(popleft_flag)
+            is_reverse = not(is_reverse)
+        elif cmd == "D":
+            if front_position >= back_position:
+                return "error"
+            else:
+                if is_reverse:
+                    back_position -= 1
+                else:
+                    front_position += 1
 
-    if not(popleft_flag):
-        number_array.reverse()
+    array = array[front_position:back_position]
+    if is_reverse == True:
+        array.reverse()
+    return_value = "[" + ",".join(array) + "]"
+    return return_value
 
-    if not error_flag:
-        length_array = len(number_array)
-        if length_array == 0:
-            answer_list.append("[]")
-        elif length_array == 1:
-            answer_list.append("[{}]".format(number_array[0]))
-        else:
-            answer = ""
-            for i in range(length_array):
-                if i == 0:
-                    answer = "".join([answer, '[{}'.format(number_array[i])])
-                    continue
-                if i == length_array - 1:
-                    answer = "".join([answer, ",{}]".format(number_array[i])])
-                    continue
-                answer = "".join([answer, ",{}".format(number_array[i])])
-            answer_list.append(answer)
 
-for ans in answer_list:
-    print(ans)
+def main():
+    input = sys.stdin.readline
+    T = int(input().strip())
+    for _ in range(T):
+        commands = input().strip()
+        n = int(input().strip())
+        array = input().strip()
+        number_array = []
+        if n != 0:
+            number_array = array[1:-1].split(",")
+        print(function_AC(commands, number_array))
+
+
+main()
+
+# 2021.06.08 지저분하게 한번 짬(직접 큐에서 pop시킴)
+# 2021.06.09 코드 참조해서 새로운 로직(리스트에서 인덱스만 변경)
+# 참조코드: https://www.acmicpc.net/source/11255731
