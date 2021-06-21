@@ -1,5 +1,1 @@
-a = "1"
-
-b = a.split()
-
-print(b)
+# clone 잘 됐나?
