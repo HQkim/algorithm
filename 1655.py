@@ -30,14 +30,4 @@ def solution():
     return
 
 
-def input_number_of_and_array_of_integers():
-    number_of_integers = int(input())
-    queue_of_integres = deque([])
-
-    for _ in range(number_of_integers):
-        queue_of_integres.append(int(input()))
-
-    return (number_of_integers, queue_of_integres)
-
-
 solution()
