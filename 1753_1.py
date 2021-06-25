@@ -1,14 +1,12 @@
 import heapq
 import sys
+
 input = sys.stdin.readline
 INF = int(1e8)
 
 v, e = map(int, input().split())
-
 start = int(input())
-
 graph = [[] for _ in range(v+1)]
-
 distance = [INF] * (v+1)
 
 for _ in range(e):
@@ -18,9 +16,9 @@ for _ in range(e):
 
 def dijkstra(start):
     q = []
-
     heapq.heappush(q, (0, start))
     distance[start] = 0
+
     while q:
         dist, now = heapq.heappop(q)
 
