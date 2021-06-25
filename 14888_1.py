@@ -12,7 +12,7 @@ INF = int(1e9)
 # 연산자 모든 조합
 arry_operator = []
 for i in range(len(number_operator)):
-    arry_operator += [i] *number_operator[i]
+    arry_operator += [i] * number_operator[i]
 
 permu_operator = list(set(permutations(arry_operator, n-1)))
 
@@ -27,10 +27,10 @@ for op in permu_operator:
             result += a_list[i+1]
         elif o_i == 1:
             result -= a_list[i+1]
-        elif o_i ==2:
+        elif o_i == 2:
             result *= a_list[i+1]
         else:
-            if result < 0:                
+            if result < 0:
                 result = -(abs(result) // a_list[i+1])
             else:
                 result = result // a_list[i+1]
@@ -42,4 +42,3 @@ for op in permu_operator:
 
 print(maxi)
 print(mini)
-    
