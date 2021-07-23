@@ -28,4 +28,4 @@ width_result = [width_list[i]-width_list[i-1]
 print(max(height_result)*max(width_result))
 
 # 내가 짠 코드는 5배쯤 됐었다. 상위권 코드를 참조해서 줄였다.
-# 근데 실행속도는 내가 짠 코드와비슷하다.
+# 근데 실행속도는 내가 짠 코드와 비슷하다.
