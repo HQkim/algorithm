@@ -1,3 +1,3 @@
-a = sum(range(1, 7))
-
-print(a)
+a = [1, 2]
+x, y = a
+print(x, y)
