@@ -21,3 +21,5 @@ for tc in range(1, T+1):
         print("".join(arr_180[i]), end=" ")
         print("".join(arr_270[i]), end=" ")
         print()
+
+# 다른 풀이(인덱스만 이용)

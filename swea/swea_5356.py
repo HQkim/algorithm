@@ -10,8 +10,12 @@ for tc in range(1, T+1):
     for i in range(1, max_length+1):        # 최대값만큼 순회
         word = ''
         for j in range(5):
-            if arr_length[j] >= i:          # 각 단어의 길이가 현재 체크하는 길이보다 크거나 같을 때
-                word += arr[j][i-1]
+            # if arr_length[j] >= i:          # 각 단어의 길이가 현재 체크하는 길이보다 크거나 같을 때
+            #     word += arr[j][i-1]
+            try:                                
+                print(word[j[i-1]], end="")
+            except:
+                pass
         answer += word
 
     print(f'#{tc} {answer}')
