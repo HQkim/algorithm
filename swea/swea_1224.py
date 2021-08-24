@@ -10,17 +10,29 @@ def mid_to_postfix(expression):                     # 중위표기법 -> 후위�
     result = []
 
     for exp in expression:
-        if exp in in_comming_priority:
+        if exp == "(":
+            stack.append(exp)
+        elif exp == "*":
             if not stack:
                 stack.append(exp)
             else:
                 while stack:
                     a = stack[-1]
-                    priority_a = in_stack_priority[a]
-                    priority_exp = in_comming_priority[exp]
-                    if priority_exp > priority_a:
+                    if a == "(" or a == "+":
                         break
-                    result.append(stack.pop())
+                    else:
+                        result.append(stack.pop())
+                stack.append(exp)
+        elif exp == "+":
+            if not stack:
+                stack.append(exp)
+            else:
+                while stack:
+                    a = stack[-1]
+                    if a == "(":
+                        break
+                    else:
+                        result.append(stack.pop())
                 stack.append(exp)
         elif exp == ")":
             while stack:
@@ -42,14 +54,17 @@ def mid_to_postfix(expression):                     # 중위표기법 -> 후위�
 
 def calculate_postfix(expression):                          # 후위 표기법을 계산하는 함수
     stack = []
+    numbers = list(map(str, range(10)))
 
     for exp in expression:
-        if exp == "*":
-            stack.append(int(stack.pop()) * int(stack.pop()))
-        elif exp == "+":
-            stack.append(int(stack.pop()) + int(stack.pop()))
-        else:
+        if exp in numbers:
             stack.append(exp)
+        elif exp == "*":
+            result = int(stack.pop()) * int(stack.pop())
+            stack.append(result)
+        else:
+            result = int(stack.pop()) + int(stack.pop())
+            stack.append(result)
 
     result = stack.pop()
     return result
@@ -59,9 +74,6 @@ T = 10
 for tc in range(1, T+1):
     N = int(input())
     mid_expression = input()
-
-    in_comming_priority = {"(": 3, "*": 2, "+": 1}
-    in_stack_priority = {"(": 0, "*": 2, "+": 1}
 
     postfix_expression = mid_to_postfix(mid_expression)
     answer = calculate_postfix(postfix_expression)
