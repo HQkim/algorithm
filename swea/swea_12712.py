@@ -1,31 +1,32 @@
-# swea 12712 파리퇴치3 -> 틀림 자꾸
-def f(a, b, N, M):
-    cross_num = arr[a][b]
-    diagonal_num = arr[a][b]
+# swea 12712 파리퇴치3 -> 틀림 자꾸 -> 문제 잘 읽자. M =3 일때 주위 두칸만 체크
+def f(i, j, N, M):
+    cross_dp = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    diag_dp = [(1, 1), (-1, 1), (-1, -1), (1, -1)]
 
-    cross = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-    diagonal = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
+    cross_num = graph[i][j]
+    diag_num = graph[i][j]
 
-    for dist in range(1, M+1):
-        for di, dj in cross:
-            ni = a + di * dist
-            nj = b + dj * dist
+    for x in range(1, M):
+        for dp in cross_dp:
+            ni = i + dp[0]*x
+            nj = j + dp[1]*x
             if 0<=ni<N and 0<=nj<N:
-                cross_num += arr[ni][nj]
+                cross_num += graph[ni][nj]
 
-    for dist in range(1, M+1):
-        for di, dj in diagonal:
-            ni = a + di * dist
-            nj = b + dj * dist
+    for x in range(1, M):
+        for dp in diag_dp:
+            ni = i + dp[0]*x
+            nj = j + dp[1]*x
             if 0<=ni<N and 0<=nj<N:
-                diagonal_num += arr[ni][nj]
+                diag_num += graph[ni][nj]
 
-    return max(cross_num, diagonal_num)
-    
+    return max(cross_num, diag_num)
+
+
 T = int(input())
 for tc in range(1, T+1):
     N, M = map(int, input().split())
-    arr = [list(map(int, input().split())) for _ in range(N)]
+    graph = [list(map(int, input().split())) for _ in range(N)]
 
     max_value = 0
     for i in range(N):
@@ -33,7 +34,5 @@ for tc in range(1, T+1):
             num = f(i, j, N, M)
             if num > max_value:
                 max_value = num
-                print(i, j)
-
 
     print(f'#{tc} {max_value}')
