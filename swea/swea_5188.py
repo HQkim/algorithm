@@ -1,5 +1,5 @@
 # swea 5188 최소합
-# Programmin/Advanced/완전 검색
+# Programming/Advanced/완전 검색
 def f(i, j, n, s):                  # 재귀적으로 합을 계산해 가는 함수
     global minV
     if i == n-1 and j == n-1:       # 맨오른쪽 아래에 도달 했을 때

@@ -1,5 +1,5 @@
 # swea 5203 베이비진 게임
-# Programmin/Advanced/탐욕 알고리즘
+# Programming/Advanced/탐욕 알고리즘
 
 def is_baby_gin(arr):       # 베이비진인지 확인하는 함수
     # run 찾기

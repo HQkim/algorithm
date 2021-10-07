@@ -1,5 +1,5 @@
 # swea 5201 컨테이너
-# Programmin/Advanced/탐욕 알고리즘
+# Programming/Advanced/탐욕 알고리즘
 
 T = int(input())
 for tc in range(1, T+1):

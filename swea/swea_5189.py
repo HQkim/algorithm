@@ -1,5 +1,5 @@
 # swea 5189 전자카트
-# Programmin/Advanced/완전 검색
+# Programming/Advanced/완전 검색
 
 def f(i, cnt, n, s):
     global minV
