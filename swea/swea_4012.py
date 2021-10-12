@@ -1,37 +1,29 @@
-# swea 4012 요리사
-
-import sys
 from itertools import combinations
 
-input = sys.stdin.readline
-
 T = int(input())
-answer_list = []
-for _ in range(T):
+for tc in range(1, T+1):
     N = int(input())
-    S_list = [list(map(int, input().split())) for _ in range(N)]
+    S = [list(map(int, input().split())) for _ in range(N)]
 
     food_set = set(range(N))
-    food_split_combinations = list(combinations(food_set, N//2))
+    # food_set에서 N//2개를 뽑는 경우
+    food_combinations = list(combinations(food_set, N//2))
 
-    case_answer_list = []
-    for food_set_a in food_split_combinations:
-        food_set_a = set(food_set_a)
-        food_set_b = food_set - food_set_a
+    min_s = int(10e9)
+    for set_a in food_combinations:
+        set_a = set(set_a)
+        set_b = food_set - set_a
 
-        food_set_a_s = 0
-        for i in food_set_a:
-            for j in food_set_a:
-                food_set_a_s += S_list[i][j]
+        s_a = 0
+        for i in set_a:
+            for j in set_a:
+                s_a += S[i][j]
 
-        food_set_b_s = 0
-        for i in food_set_b:
-            for j in food_set_b:
-                food_set_b_s += S_list[i][j]
+        s_b = 0
+        for i in set_b:
+            for j in set_b:
+                s_b += S[i][j]
 
-        case_answer_list.append(abs(food_set_a_s-food_set_b_s))
+        min_s = min(min_s, abs(s_a-s_b))
 
-    answer_list.append(min(case_answer_list))
-
-for i, number in enumerate(answer_list, start=1):
-    print(f'#{i} {number}')
+    print(f'#{tc} {min_s}')
