@@ -1,25 +1,37 @@
-def f(i, N):
-    global ans
-    if i == N:
-        ans += 1
-        return
+# boj 2206 벽 부수고 이동하기
 
-    for x in range(N):
-        if visited[i] == -1:
-            visited[i] = x
-            is_valid = True
-            for j in range(i):
-                if x == visited[j] or abs(visited[j]-x) == abs(i-j):
-                    is_valid = False
-                    break
-            if is_valid:
-                f(i+1, N)
-            visited[i] = -1
+import sys
+from collections import deque
 
+input = sys.stdin.readline
 
-N = int(input())
-visited = [-1]*N
-ans = 0
-f(0, N)
+N, M = map(int, input().strip().split())
+graph = [list(map(int, list(input().rstrip()))) for _ in range(N)]
 
-print(f'{ans}')
+visited = [[0]*M for _ in range(N)]  # 방문표시 배열
+visited[0][0] = 1
+queue = deque()                     # 큐 생성
+queue.append((0, 0, 0, 1))          # 행, 열, 벽부순 여부, 이동거리
+directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
+min_dist = -1       # 최단 경로 -1로 설정
+while queue:
+    row, col, is_break, dist = queue.popleft()
+
+    if row == N-1 and col == M-1:   # 목표 지점에 도달한 경우
+        min_dist = dist
+        break
+
+    for dr, dc in directions:
+        nr = row + dr
+        nc = col + dc
+        # 범위를 벗어나지 않고 방문하지 않았을 떄
+        if 0 <= nr < N and 0 <= nc < M and not visited[nr][nc]:
+            if graph[nr][nc] == 0:                      # 통로일 경우
+                visited[nr][nc] = 1
+                queue.append((nr, nc, is_break, dist+1))
+            elif graph[nr][nc] == 1 and not is_break:   # 벽이고 부술 수 있는 경우
+                visited[nr][nc] = 1
+                queue.append((nr, nc, 1, dist+1))
+
+print(min_dist)
