@@ -27,11 +27,16 @@ while queue:
         nc = col + dc
         # 범위를 벗어나지 않고 방문하지 않았을 떄
         if 0 <= nr < N and 0 <= nc < M and not visited[nr][nc]:
-            if graph[nr][nc] == 0:                      # 통로일 경우
-                visited[nr][nc] = 1
-                queue.append((nr, nc, is_break, dist+1))
-            elif graph[nr][nc] == 1 and not is_break:   # 벽이고 부술 수 있는 경우
-                visited[nr][nc] = 1
-                queue.append((nr, nc, 1, dist+1))
+            if not is_break:
+                if graph[nr][nc] == 0:                      # 통로일 경우
+                    visited[nr][nc] = 1
+                    queue.append((nr, nc, is_break, dist+1))
+                else:   # 벽이고 부술 수 있는 경우
+                    visited[nr][nc] = 1
+                    queue.append((nr, nc, 1, dist+1))
+            else:
+                if graph[nr][nc] == 0:                      # 통로일 경우
+                    visited[nr][nc] = 1
+                    queue.append((nr, nc, is_break, dist+1))
 
 print(min_dist)
