@@ -1,5 +1,4 @@
-str(1)
-int('30')
-int(5)
-bool('50')
-int('3.5')
+a = [7, 8, 9]
+
+for i,v in enumerate(a, 1):
+    print(i, v)

@@ -1,3 +1,5 @@
+# programmers lv2 땅따먹기
+
 def solution(land):
 
     n = len(land)

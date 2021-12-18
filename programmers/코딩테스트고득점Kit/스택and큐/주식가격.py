@@ -1,20 +1,20 @@
 
-# 2중 for문 사용. O(n^2)
-def solution(prices):
+# # 2중 for문 사용. O(n^2)
+# def solution(prices):
     
-    answer = []
+#     answer = []
     
-    for i in range(len(prices)):
-        price = prices[i]
-        not_down = 0
-        for j in range(i+1, len(prices)):
-            not_down += 1
-            if price > prices[j]:
-                break
-        answer.append(not_down)
+#     for i in range(len(prices)):
+#         price = prices[i]
+#         not_down = 0
+#         for j in range(i+1, len(prices)):
+#             not_down += 1
+#             if price > prices[j]:
+#                 break
+#         answer.append(not_down)
     
     
-    return answer
+#     return answer
 
 # stack 이용 O(n)
 def solution(prices):
