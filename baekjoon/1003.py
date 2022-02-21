@@ -1,35 +1,14 @@
-d_0 = [0]*41
-d_1 = [0]*41
+n = int(input())
+for _ in range(n):
+    m = int(input())
+    dp = [[0, 0] for _ in range(m+1)]
+    if m >= 0: 
+        dp[0] = [1, 0]
+    if m >= 1:
+        dp[1] = [0, 1]
+    
+    for i in range(2, m+1):
+        dp[i][0] = dp[i-1][0] + dp[i-2][0]
+        dp[i][1] = dp[i-1][1] + dp[i-2][1]
 
-
-def fibo_0(n):
-    if n == 0:
-        return 1
-    elif n == 1:
-        return 0
-
-    if d_0[n] != 0:
-        return d_0[n]
-
-    d_0[n] = fibo_0(n-1) + fibo_0(n-2)
-    return d_0[n]
-
-
-def fibo_1(n):
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 1
-
-    if d_1[n] != 0:
-        return d_1[n]
-
-    d_1[n] = fibo_1(n-1) + fibo_1(n-2)
-    return d_1[n]
-
-
-t = int(input())
-
-for k in range(t):
-    n = int(input())
-    print(fibo_0(n), fibo_1(n))
+    print(*dp[-1])
