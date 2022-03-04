@@ -1,28 +1,31 @@
 # programmers_2019카카오 오픈채팅방
 
 def solution(record):
-    answer = []
-    result = []
-    names = {}
+    answer = [] # 정답 배열
+    result = [] # uid 닉네임으로 바뀌기 전 배열
 
-    for r in record:
-        r_split = r.split()
-        action = r_split[0]
-        user_id = r_split[1]
+    name_dict = dict()  # uid-닉네임 딕셔너리
 
-        if action in ["Enter", "Change"]:
-            nickname = r_split[2]
-            names[user_id] = nickname
-            if action == "Enter":
-                result.append((action, user_id))
+    # 결과 기록
+    for cmd in record:
+        cmd = cmd.split()
+        if cmd[0] == 'Enter':
+            result.append(cmd[:2])
+            name_dict[cmd[1]] = cmd[2]
+        elif cmd[0] == 'Leave':
+            result.append(cmd[:2])
         else:
-            result.append((action, user_id))
-
-    for res in result:
-        if res[0] == "Enter":
-            answer.append(f"{names[res[1]]}님이 들어왔습니다.")
+            name_dict[cmd[1]] = cmd[2]
+    
+    # uid 닉네임으로 바꾸기
+    for cmd in result:
+        name = f'{name_dict[cmd[1]]}님이 '
+        if cmd[0] == 'Enter':
+            action = '들어왔습니다.'
         else:
-            answer.append(f"{names[res[1]]}님이 나갔습니다.")
+            action = '나갔습니다.'
+        
+        answer.append(name+action)
 
     return answer
 
