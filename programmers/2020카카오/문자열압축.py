@@ -2,39 +2,45 @@
 
 
 def solution(s):
-    l_s = len(s)
-    l_max = len(s) // 2
+    answer = 1000
+    s_len = len(s)
 
-    if l_s == 1:
+    if s_len == 1:
         return 1
 
-    length_list = []
-    for i in range(1, l_max + 1):
-        res = l_s % i
-        length = 0
-        word_prev = ""
-        count = 0
-        for j in range(l_s//i):
-            word = s[j*i: j*i+i]
-            if word == word_prev:
+    for c in range(1, s_len//2+1):
+        s_comp = '' # 압축한 문자열
+        count = 0   # 반복된 횟수
+        k = ''      # 중복되는 문자열
+        for i in range(0, s_len, c):
+            if not k:
+                k = s[i:i+c]
+                count += 1
+                continue
+
+            if i+c < s_len:
+                now = s[i:i+c]
+            else:
+                now = s[i:]
+
+            if now == k:
                 count += 1
             else:
-                if count <= 1:
-                    length += i * count
+                if count == 1:
+                    s_comp += k
                 else:
-                    length += i + len(str(count))
-                word_prev = word
+                    s_comp += str(count)+k
+                k = now
                 count = 1
 
-        if count <= 1:
-            length += i * count
+        if count == 1:
+            s_comp += k
         else:
-            length += i + len(str(count))
-        length += res
-        length_list.append(length)
+            s_comp += str(count)+k
 
-    answer = min(length_list)
+        answer = min(answer, len(s_comp))
+
     return answer
 
 
-print(solution("xxxxxxxxxxyyy"))
+print(solution("aabbaccc"))

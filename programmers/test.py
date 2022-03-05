@@ -1,32 +1,46 @@
-# 프로그래머스 lv.2 오픈채팅방
-def solution(record):
-    answer = [] # 정답 배열
-    result = [] # uid 닉네임으로 바뀌기 전 배열
+# 2020카카오 문자열 압축
 
-    name_dict = dict()  # uid-닉네임 딕셔너리
+def solution(s):
+    answer = 1000
+    s_len = len(s)
 
-    # 결과 기록
-    for cmd in record:
-        cmd = cmd.split()
-        if cmd[0] == 'Enter':
-            result.append(cmd[:2])
-            name_dict[cmd[1]] = cmd[2]
-        elif cmd[0] == 'Leave':
-            result.append(cmd[:2])
+    if s_len == 1:
+        return 1
+
+    for c in range(1, s_len//2+1):
+        s_comp = '' # 압축한 문자열
+        count = 0   # 반복된 횟수
+        k = ''      # 중복되는 문자열
+        for i in range(0, s_len, c):
+            if not k:
+                k = s[i:i+c]
+                count += 1
+                continue
+
+            if i+c < s_len:
+                now = s[i:i+c]
+            else:
+                now = s[i:]
+
+            if now == k:
+                count += 1
+            else:
+                if count == 1:
+                    s_comp += k
+                else:
+                    s_comp += str(count)+k
+                k = now
+                count = 1
+
+        if count == 1:
+            s_comp += k
         else:
-            name_dict[cmd[1]] = cmd[2]
-    
-    # uid 닉네임으로 바꾸기
-    for cmd in result:
-        name = f'{name_dict[cmd[1]]}님이 '
-        if cmd[0] == 'Enter':
-            action = '들어왔습니다.'
-        else:
-            action = '나갔습니다.'
-        
-        answer.append(name+action)
+            s_comp += str(count)+k
+
+        answer = min(answer, len(s_comp))
 
     return answer
 
 
-solution(["Enter uid1234 Muzi", "Enter uid4567 Prodo","Leave uid1234","Enter uid1234 Prodo","Change uid4567 Ryan"])
+print(solution("xababcdcdababcdcd"))
+
