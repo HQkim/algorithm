@@ -1,35 +1,27 @@
 # programmers lv2 기능개발
-from collections import deque
 
 def solution(progresses, speeds):
     answer = []
-    n = len(progresses)
-    days = [0]*n
+    p_len = len(progresses)
+    work_day = [0] * p_len
 
-    for i in range(n):                  # 각 기능별 남은 작업 일수
-        progress = progresses[i]
-        speed = speeds[i]
-        quo = (100-progress) // speed
-        res = (100-progress) % speed
-        day = quo
-        if res:
+    for i in range(p_len):
+        day = (100-progresses[i]) // speeds[i]
+        left = (100-progresses[i]) % speeds[i]
+        if left:
             day += 1
-        days[i] = day
+        work_day[i] = day
 
-
-    days_q = deque(days)                # 배포되는 기능 개수 계산                
-    day_distribute = days_q.popleft()
+    local_max = work_day[0]
     count = 1
-    
-    while days_q:                       
-        num = days_q.popleft()
-
-        if num > day_distribute:
+    for i in range(1, p_len):
+        if work_day[i] > local_max:
             answer.append(count)
-            day_distribute = num
+            local_max = work_day[i]
             count = 1
         else:
             count += 1
+    
     answer.append(count)
 
     return answer
