@@ -4,60 +4,62 @@
 def solution(p):
     answer = ''
 
-    def split(w):
-        # 빈 문자열이라면 그대로 리턴
-        if w == '':                    
+
+    def my_logic(w):
+        # 1. 입력한 문자열이 빈 문자열인 경우, 빈 문자열 반환
+        if w == '':
             return w
-
-        # 균형잡힌 괄호 문자열 u, v로 분리
-        num_stack = 0
-        split_num = len(w)
-
+        # 2. w를 두 "균형잡힌 괄호 문자열" u, v로 분리. u는 더이상 분리 못해야함.
+        stack = 0
         for i in range(len(w)):
             if w[i] == '(':
-                num_stack += 1
+                stack += 1
             else:
-                num_stack -= 1
-
-            if num_stack == 0:
-                split_num = i
+                stack -= 1
+            
+            if stack == 0:
+                s = i
                 break
+        
+        u = w[:s+1]
+        v = w[s+1:]
 
-        u = w[:split_num+1]
-        v = w[split_num+1:]
-
-        # u가 올바른 괄호 문자열인지 확인
-        num_stack = 0
-        is_valid = True
+        # 3. 문자열 u가 올바른 괄호 문자열인치 체크
+        stack = 0
+        is_right = True
         for i in range(len(u)):
             if u[i] == '(':
-                num_stack += 1
+                stack += 1
             else:
-                num_stack -= 1
-            
-            if num_stack < 0:
-                is_valid = False
+                stack -= 1
+            if stack < 0:
+                is_right = False
                 break
+        # 3-1 u가 올바른 문자열이라면 v에 대해 1단계부터 수행후 u에 붙여서 반환
+        if is_right:
+            return u + my_logic(v)
         
+        # 4. 문자열 u가 올바른 문자열이 아니라면
+        new = '(' + my_logic(v) + ')'
+        u_list = [i for i in u[1:-1]]
+
+        for i in range(len(u_list)):
+            if u_list[i] == '(':
+                u_list[i] = ')'
+            else:
+                u_list[i] = '('
         
-        if is_valid:                # u가 올바른 괄호 문자열이라면
-            u += split(v)
-            return u
-        else:                       # u가 올바른 괄호 문자열이 아니라면
-            word = '(' + split(v) + ')' 
-            new_u = u[1:-1]
-            append_u = ''
-            for i in range(len(new_u)):
-                if new_u[i] == ')':
-                    append_u += '('
-                else:
-                    append_u += ')'
-            
-            word += append_u
-            return word
-    
-    answer = split(p)
+        u = ''.join(u_list)
+        new = new + u
+
+        return new
+
+
+    answer = my_logic(p)
 
     return answer
 
+
 print(solution("(()())()"))
+print(solution(")("))
+print(solution("()))((()"))
