@@ -1,12 +1,13 @@
+# boj 2231 분해합
+
 n = int(input())
 
-num = []
-for i in range(1, n+1):
-    n_sum = i + sum([int(j) for j in str(i)])
-    if n_sum == n:
-        num.append(i)
+answer = 0
+min_start = max(1, n - len(str(n))*9)
+for i in range(min_start, n):
+    num = i + sum([int(j) for j in str(i)])
+    if num == n:
+        answer = i
+        break
 
-if num == []:
-    print(0)
-else:
-    print(min(num))
+print(answer)
