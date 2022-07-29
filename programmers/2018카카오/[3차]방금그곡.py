@@ -4,7 +4,7 @@ def solution(m, musicinfos):
     answer = ''
     candidate = []
     d_r = {'C#': 'c', 'D#': 'd', 'F#': 'f', 'G#': 'g', 'A#': 'a'}
-    for k,v in d_r.items():
+    for k, v in d_r.items():
         if k in m:
             m = m.replace(k, v)
 
@@ -14,10 +14,7 @@ def solution(m, musicinfos):
             if k in melody:
                 melody = melody.replace(k, v)
         time = convert_time(end) - convert_time(start)
-        melody_length = len(melody)
-        over_cycle= time // melody_length
-        over_res = time % melody_length
-        real_melody = melody*over_cycle + melody[:over_res]
+        real_melody = melody*(time // len(melody)) + melody[:time % len(melody)]
         if m in real_melody:
             candidate.append((title, time))
     
