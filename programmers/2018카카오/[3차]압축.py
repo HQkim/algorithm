@@ -1,3 +1,5 @@
+# programmers 2018카카오블라인드 [3차]압축
+
 def solution(msg):
     answer = []
     d = {}
