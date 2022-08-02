@@ -1,45 +1,34 @@
-# 4949번
+# BOJ 4949 균형잡힌 세상
 
 import sys
+input = sys.stdin.readline
 
-while True:
-    sentence = sys.stdin.readline().rstrip()
-    stack = []
-    error = 0
-
-    if sentence == ".":
+while 1:
+    word = input().rstrip()
+    if word == '.':
         break
 
-    try:
-        for i in sentence:
-            if i == "(":
-                stack.append(i)
-            elif i == "[":
-                stack.append(i)
-            elif i == ")":
-                if not ("(" in stack):
-                    error = 1
-                    break
-                else:
-                    if stack[-1] == "(":
-                        stack.pop()
-                    else:
-                        error = 1
-                        break
-            elif i == "]":
-                if not ("[" in stack):
-                    error = 1
-                    break
-                else:
-                    if stack[-1] == "[":
-                        stack.pop()
-                    else:
-                        error = 1
-                        break
-        if not stack and error == 0:
-            print("yes")
-        else:
-            print("no")
+    stack = []
+    is_sym = True
+    for w in word:
+        if w == '(':
+            stack.append(w)
+        elif w == ')':
+            if stack and stack[-1] == '(':
+                stack.pop()
+            else:
+                is_sym = False
+                break
+        elif w == '[':
+            stack.append(w)
+        elif w == ']':
+            if stack and stack[-1] == '[':
+                stack.pop()
+            else:
+                is_sym = False
+                break            
 
-    except:
-        print("no")
+    if not stack and is_sym == True:
+        print('yes')
+    else:
+        print('no')
