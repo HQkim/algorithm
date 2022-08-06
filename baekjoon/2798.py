@@ -1,12 +1,21 @@
-n, m = map(int, input().split())
-c = list(map(int, input().split()))
+# BOJ 2798 블랙잭
 
-num = []
-for i in range(n):
-    for j in range(n):
-        for k in range(n):
-            s = c[i]+c[j]+c[k]
-            if s <= m and i != j and j != k and i != k:
-                num.append(s)
+from itertools import combinations
 
-print(max(num))
+N, M = map(int, input().split())
+arr = list(map(int, input().split()))
+combis = combinations(arr, 3)
+
+d_min = int(10e9)
+s_min = 0
+for comb in combis:
+    s = sum(comb)
+    if s > M:
+        continue
+    
+    d = M - s
+    if d < d_min:
+        d_min = d
+        s_min = s
+
+print(s_min)
