@@ -61,3 +61,6 @@ for three_points in points_combis:
         graph[p[0]][p[1]] = 0
 
 print(cnt_max)
+
+# 코드 속도는 괜찮지만 길이가 많이 길다
+# 조금 더 줄여볼 수 있으면 좋겠다
