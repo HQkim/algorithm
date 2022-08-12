@@ -41,3 +41,5 @@ for tc in range(1, T + 1):
                 visited[i][j] = 0
 
     print(f'#{tc} {max_s}')
+
+# 거의 1년만에 다시 풀었는데 충격적으로 코드가 같았다.. 좋은건가 나쁜건가 허허
