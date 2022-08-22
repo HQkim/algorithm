@@ -1,5 +1,4 @@
-# BOJ 1107.py
-
+# BOJ 1107.py 리모컨
 
 def solution():
     N = int(input())
