@@ -1,62 +1,58 @@
 # programmers 2021카카오인턴십 표 편집
 
-def solution(n, k, cmd):
-    arr = [1] * n
-    stack = []
-    now = k
-    last = n-1
-    
-    def move(a, c):
-        nonlocal now
+def solution(n, k, cmds):
+    class Node:
+        def __init__(self, idx, up, down) -> None:
+            self.idx = idx
+            self.up = up
+            self.down = down
+            self.state = "O"
         
-        if a == 'D':
-            plus = 1
-        else:
-            plus = -1
-            
-        while c:
-            now += plus
-            if arr[now]:
-                c -= 1
+    def u(k, x):
+        for _ in range(x):
+            k = table[k].up
+        return k
     
+    def d(k, x):
+        for _ in range(x):
+            k = table[k].down
+        return k
     
-    def find_last(now):
-        for i in range(now-1, -1, -1):
-            if arr[i] == 1:
-                return i
-            
+    def c(k, x):
+        pick = table[k]
+        trash.append(pick)
+        pick.state = "X"
+        if pick.up != None: table[pick.up].down = pick.down
+        if pick.down != None: table[pick.down].up = pick.up
+        return pick.down if pick.down != None else pick.up
 
-    def find_next(x):
-        for i in range(x+1, n):
-            if arr[i] == 1:
-                return i
-            
-            
-    for c in cmd:
-        if c == 'C':
-            arr[now] = 0
-            stack.append(now)
-            if now == last:
-                now = find_last(now)
-                last = now
-            else:
-                now = find_next(now)
-            
-        elif c == 'Z':
-            rec = stack.pop()
-            arr[rec] = 1
-            if rec > last:
-                last = rec
-        else:
-            action, cnt = c.split()
-            cnt = int(cnt)
-            move(action, cnt)        
+    def z(k, x):
+        pick = trash.pop()
+        pick.state = "O"
+        if pick.up != None: table[pick.up].down = pick.idx
+        if pick.down != None: table[pick.down].up = pick.idx
+        return k
+
+    switch = {
+        "U": u,
+        "D": d,
+        "C": c,
+        "Z": z
+    }
+
+    table = [Node(i, i-1, i+1) for i in range(n)]
+    table[0].up = None
+    table[n-1].down = None
     
-    for i in range(n):
-        arr[i] = 'O' if arr[i] else 'X'
-    
-    return ''.join(arr)
+    trash = []
+
+    for cmd in cmds:
+        k = switch[cmd[0]](k, int(cmd[2:]) if cmd[2:] else 0)
+
+    return "".join([cell.state for cell in table])
 
 
 print(solution(8, 2, ["D 2","C","U 3","C","D 4","C","U 2","Z","Z"]))
 print(solution(8, 2, ["D 2","C","U 3","C","D 4","C","U 2","Z","Z","U 1","C"]))
+
+# 참고: https://school.programmers.co.kr/questions/28602
