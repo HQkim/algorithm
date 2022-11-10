@@ -4,13 +4,13 @@ from collections import deque
 
 
 def bfs(v):
-    visited = [0] * (N + 1)
+    visited = [0] * (N+1)
     q = deque([v])
     visited[v] = 1
     c = 1
 
     while q:
-        now = q.pop()
+        now = q.popleft()
         for a in graph[now]:
             if not visited[a]:
                 visited[a] = 1
@@ -23,7 +23,7 @@ def bfs(v):
 if __name__ == '__main__':
     input = sys.stdin.readline
     N, M = map(int, input().rstrip().split())
-    graph = [[] for _ in range(N + 1)]
+    graph = [[] for _ in range(N+1)]
     cnt_max = 1
     answer = []
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
         a, b = map(int, input().rstrip().split())
         graph[b].append(a)
 
-    for i in range(1, N + 1):
+    for i in range(1, N+1):
         cnt = bfs(i)
         if cnt > cnt_max:
             answer = [i]
