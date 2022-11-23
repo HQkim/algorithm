@@ -1,3 +1,5 @@
+# programmers 2021Dev-Matching웹백엔드상반기 로또의 최고 순위와 최저 순위
+
 def solution(lottos, win_nums):
     d = {0: 6, 1: 6, 2: 5, 3: 4, 4: 3, 5: 2, 6: 1}
     answer = []
